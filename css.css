@@ -1,0 +1,165 @@
+body{
+    margin: 0;
+    background-color: white;
+}
+
+#nombre{
+    font-size: 20px;
+}
+
+#titulo{
+    margin-top: 60px;
+    border: groove 5px black;
+    width: 700px;
+    margin-left: 25%;
+    font-size: 50px;
+    font-family: fantasy;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: white;
+}
+
+#titulo{
+    text-align: center;
+    font-family:cursive;
+    font-size: 45px;
+    margin-bottom: 100px;
+}
+
+#menu{
+    position: fixed;
+    top: 0;
+    display: block;
+    
+    height: 100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 150px auto auto;
+    background-color: #2196F3;
+	
+    
+}
+
+#hueco{
+ height: 100px;
+}
+
+
+
+#logo{
+    height: 100px;
+    
+}
+
+.grid-item {
+    font-size: 30px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    text-align: center;
+
+}
+
+.grid-item:hover{
+    color: white;
+} 
+
+#preguntas {
+    font-size: 30px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    text-align: center;
+}
+
+#preguntasOcultas{
+    visibility: hidden;
+    display: none;
+    background-color: #2196F3;
+    opacity: 0.8;
+    width: 500px;
+    margin-left: 40%;
+    font-size: 20px;
+    padding: 5px;
+    bac
+}
+
+#preguntas:hover{
+    color: white;
+}
+
+#preguntas:hover #preguntasOcultas{
+    visibility: visible;
+    display: block;
+}
+
+h1{
+    font-size: 30px;
+}
+
+#contenedor{
+    display: grid;
+    grid-template-columns: auto 50% auto;
+}
+
+#imagenes{
+    text-align: center;
+}
+
+
+#imagen{
+    height: 200px;
+    display: inline;
+    margin-bottom: -250px;
+}
+
+#texto{
+    
+    margin-left: 20px;
+    margin-right: 60px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 20px;
+    border-left: groove 5px black;
+    border-right: groove 5px black;
+    display: inline-block;
+}
+
+#bolsasBasura{
+    height: 300px;
+}
+
+#rocas{
+    height: 250px;
+    border-radius: 40px;
+}
+
+#triste{height: 300px;}
+
+img{
+    margin-bottom: 100px;
+}
+
+@keyframes batlogo{
+    from{
+        transform: rotate(45deg);
+    }
+    
+    25%{
+        transform: rotate(90deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    75%{transform: rotate(240deg);}
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+img:hover{
+    animation: batlogo 4s infinite;
+            
+}
