@@ -6,17 +6,36 @@
     <link rel="stylesheet" href="css.css">
 </head>
 <body>
-    <div class="container">
-        <input type="text" id="textoCifrar" placeholder="Escribe el texto a cifrar">
-        <input type="text" id="resultadoCifrado" placeholder="Resultado Cifrado" readonly>
-        <button id="funcionCifrar">Cifrar</button>
+    <div class="main-grid">
+
+    <div class="container"> <!--Aqui se cifra el cifrado Cesar-->
+        <p>Crifrado Cesar</p>
+        <input type="text" id="textoCifrarCesar" placeholder="Escribe el texto a cifrar">
+        <input type="text" id="resultadoCifradoCesar" placeholder="Resultado Cifrado" readonly>
+        <button id="funcionCifrarCesar">Cifrar</button>
     </div>
 
-    <div class="container">
-        <input type="text" id="textoDescifrar" placeholder="Escribe el texto a descrifrar">
-        <input type="text" id="resultadoDescifrado" placeholder="Resultado Descifrado" readonly>
-        <button id="funcionDescifrar">Descifrar</button>
+    <div class="container"> <!--Aqui se descifra el cifrado Cesar-->
+        <p>Descifrado Cesar</p>
+        <input type="text" id="textoDescifrarCesar" placeholder="Escribe el texto a descifrar">
+        <input type="text" id="resultadoDescifradoCesar" placeholder="Resultado Descifrado" readonly>
+        <button id="funcionDescifrarCesar">Descifrar</button>
     </div>
+
+    <div class="container"> <!--Aqui se cifra el codigo morse-->
+        <p>Cifrado Morse</p>
+        <input type="text" id="textoCifrarMorse" placeholder="Escribe el texto a cifrar">
+        <input type="text" id="resultadoCifradoMorse" placeholder="Resultado cifrado" readonly>
+        <button id="funcionCifrarMorse">Cifrar</button>
+    </div>
+
+    <div class="container"> <!--Aqui se descifra el codigo Morse-->
+        <p>Descifrado Morse</p>
+        <input type="text" id="textoDescifrarMorse" placeholder="Escribe el texto a descifrar">
+        <input type="text" id="resultadoDescifradoMorse" placeholder="Resultado Descifrado" readonly>
+        <button id="funcionDescifrarMorse">Descifrar</button>
+    </div>
+</div>
 
 
     <script src="js.js" defer></script>
