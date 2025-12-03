@@ -1,21 +1,24 @@
+/* Estilos generales */
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #f8b400, #f85f73);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    padding: 10px; /* espacio para móviles */
     color: #fff;
 }
 
 .container {
     background: rgba(0,0,0,0.6);
-    padding: 40px;
+    padding: 20px;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    max-width: 400px;
+    width: 90%;       /* ancho adaptable */
+    max-width: 400px; /* límite en pantallas grandes */
 }
 
 h1 {
@@ -46,14 +49,37 @@ button:hover {
 #imagenPosicion {
     margin-top: 15px;
     max-width: 100%;
+    height: auto;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 #nombrePosicion {
-    font-size: 2rem;       /* Tamaño más grande */
-    color: #9b59b6;        /* Lila */
-    font-weight: bold;      /* Negrita */
-    text-align: center;     /* Centrado opcional */
-    margin-top: 20px;       /* Espacio encima */
+    font-size: 2rem;
+    color: #9b59b6;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 400px) {
+    h1 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    #nombrePosicion {
+        font-size: 1.5rem;
+        margin-top: 15px;
+    }
+
+    .container {
+        padding: 15px;
+    }
 }
