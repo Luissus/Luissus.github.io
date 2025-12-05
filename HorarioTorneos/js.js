@@ -29,7 +29,7 @@ async function mostrarResultados() {
     const snapshot = await db.collection("resultadoPartidos").get();
 
     if (snapshot.empty) {
-      tablaBody.innerHTML = "<tr><td colspan='3'>No hay resultados</td></tr>";
+      tablaBody.innerHTML = "<tr><td colspan='4'>No hay resultados</td></tr>";
       return;
     }
 
@@ -47,9 +47,13 @@ async function mostrarResultados() {
       const resultado = document.createElement("td");
       resultado.textContent = data.resultado || "";
 
+      const clasificacion = document.createElement("td");
+      clasificacion.textContent = data.clasificacion || "";
+
       row.appendChild(nombre);
       row.appendChild(hora);
       row.appendChild(resultado);
+      row.appendChild(clasificacion);
 
       tablaBody.appendChild(row);
     });
@@ -103,13 +107,15 @@ btnAgregar.addEventListener("click", async () => {
  * @param {string} nombre - Nombre del partido
  * @param {string} hora - Hora del partido
  * @param {string} resultado - Resultado del partido
+ * @param {number} clasificacion
  */
-async function agregarPartido(nombre, hora, resultado) {
+async function agregarPartido(nombre, hora, resultado, clasificacion) {
   try {
     await db.collection("resultadoPartidos").add({
       nombre: nombre,
       hora: hora,
-      resultado: resultado
+      resultado: resultado,
+      clasificacion: clasificacion
     });
     alert("Partido agregado correctamente");
     mostrarResultados(); // Actualiza la tabla
@@ -121,18 +127,20 @@ async function agregarPartido(nombre, hora, resultado) {
 const nombreInput = document.getElementById("partido");
 const horaInput = document.getElementById("hora");
 const resultadoInput = document.getElementById("resultado");
+let clasificacionInput = document.getElementById("clasificacion");
 
 btnAgregar.addEventListener("click", () => {
   const nombre = nombreInput.value.trim();
   const hora = horaInput.value.trim();
   const resultado = resultadoInput.value.trim();
+  const clasificacion = clasificacionInput.value.trim();
 
   if (!nombre || !hora || !resultado) {
     alert("Rellena todos los campos");
     return;
   }
 
-  agregarPartido(nombre, hora, resultado);
+  agregarPartido(nombre, hora, resultado, clasificacion);
 
   // Limpiar inputs
   nombreInput.value = "";
