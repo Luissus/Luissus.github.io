@@ -20,48 +20,52 @@ const btnLogin = document.getElementById("btnLogin");
 const adminForm = document.getElementById("adminForm");
 const btnAgregar = document.getElementById("btnAgregar");
 
-// Función para mostrar lista
-async function mostrarResultados() {
-  const tablaBody = document.getElementById("tablaBody");
-  tablaBody.innerHTML = ""; // Limpiar tabla
+  // Función para mostrar resultados
+  async function mostrarResultados() {
+    const tablaBody = document.getElementById("tablaBody");
+    tablaBody.innerHTML = ""; // Limpiar tabla
 
-  try {
-    const snapshot = await db.collection("resultadoPartidos").get();
+    try {
+      const snapshot = await db.collection("resultados").get();
 
-    if (snapshot.empty) {
-      tablaBody.innerHTML = "<tr><td colspan='4'>No hay resultados</td></tr>";
-      return;
+      if (snapshot.empty) {
+        tablaBody.innerHTML = "<tr><td colspan='4'>No hay resultados</td></tr>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = document.createElement("tr");
+
+        // Cada campo en su celda
+        const nombreEquipoLocal = document.createElement("td");
+        nombreEquipoLocal.textContent = data.nombreEquipoLocal || "";
+
+        const nombreEquipoVisitante = document.createElement("td");
+        nombreEquipoVisitante.textContent = data.nombreEquipoVisitante || "";
+
+        const hora = document.createElement("td");
+        hora.textContent = data.hora ? data.hora.toDate().toLocaleTimeString() : "";
+
+        const golesEquipoLocal = document.createElement("td");
+        golesEquipoLocal.textContent = data.golesEquipoLocal || "";
+
+        const golesEquipoVisitante = document.createElement("td");
+        golesEquipoVisitante.textContent = data.golesEquipoVisitante || "";
+
+        row.appendChild(nombreEquipoLocal);
+        row.appendChild(nombreEquipoVisitante);
+        row.appendChild(hora);
+        row.appendChild(golesEquipoLocal);
+        row.appendChild(golesEquipoVisitante);
+
+        tablaBody.appendChild(row);
+      });
+
+    } catch (error) {
+      alert("Error al cargar resultados: " + error.message);
     }
-
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const row = document.createElement("tr");
-
-      // Cada campo en su celda
-      const nombre = document.createElement("td");
-      nombre.textContent = data.nombre || "";
-
-      const hora = document.createElement("td");
-      hora.textContent = data.hora || "";
-
-      const resultado = document.createElement("td");
-      resultado.textContent = data.resultado || "";
-
-      const clasificacion = document.createElement("td");
-      clasificacion.textContent = data.clasificacion || "";
-
-      row.appendChild(nombre);
-      row.appendChild(hora);
-      row.appendChild(resultado);
-      row.appendChild(clasificacion);
-
-      tablaBody.appendChild(row);
-    });
-
-  } catch (error) {
-    alert("Error al cargar resultados: " + error.message);
   }
-}
 
 // Mostrar resultados al cargar
 mostrarResultados();
@@ -79,28 +83,6 @@ btnLogin.addEventListener("click", async () => {
   }
 });
 
-/*// Agregar nuevo campo (solo admin)
-btnAgregar.addEventListener("click", async () => {
-  const nombre = document.getElementById("campoNombre").value;
-  const valor = document.getElementById("campoValor").value;
-
-  if (!nombre || !valor) {
-    alert("Rellena ambos campos");
-    return;
-  }
-
-  try {
-    await db.collection("resultadoPartidos").add({
-      [nombre]: valor
-    });
-    alert("Campo agregado");
-    document.getElementById("campoNombre").value = "";
-    document.getElementById("campoValor").value = "";
-    mostrarResultados(); // Actualizar lista
-  } catch (error) {
-    alert("Error al agregar: " + error.message);
-  }
-});*/
 
 /**
  * Agrega un partido a Firestore
@@ -124,10 +106,12 @@ async function agregarPartido(nombre, hora, resultado, clasificacion) {
   }
 }
 
+
+//Agregar resultado
 const nombreInput = document.getElementById("partido");
 const horaInput = document.getElementById("hora");
 const resultadoInput = document.getElementById("resultado");
-let clasificacionInput = document.getElementById("clasificacion");
+const clasificacionInput = document.getElementById("clasificacion");
 
 btnAgregar.addEventListener("click", () => {
   const nombre = nombreInput.value.trim();

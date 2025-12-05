@@ -3,40 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <title>Resultados de Partidos</title>
-  <style>
+ <!-- <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     h1 { color: #333; }
     ul { list-style-type: none; padding: 0; }
     li { padding: 5px 0; border-bottom: 1px solid #ccc; }
     button { padding: 10px 15px; margin: 5px; cursor: pointer; }
     #adminForm { display: none; margin-top: 20px; }
-  </style>
+  </style>-->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Resultados de Partidos</h1>
+  <header class="header">
+<img src="foto-izquierda.jpg" alt="Imagen izquierda" class="side-img" />
+<h1>Torneo Noja</h1>
+<img src="foto-derecha.jpg" alt="Imagen derecha" class="side-img" />
+</header>
+
+  <main class="layout">
+  <section class="left-box">
+  <h2>Resultados de Partidos</h2>
 
   <table id="tablaResultados">
   <thead>
     <tr>
-      <th>Nombre</th>
+      <th>Nombre equipo</th>
+      <th>Nombre equipo</th>
       <th>Hora</th>
-      <th>Resultado</th>
-      <th>Clasificacion</th>
+      <th>Goles Visitante</th>
+      <th>Goles Local</th>
     </tr>
   </thead>
   <tbody id="tablaBody"></tbody>
-</table>
+  </table>
+  </section>
 
-  <button id="btnLogin">Iniciar sesión administrador</button>
+<section class="right-box">
+<h2>Clasificaciones</h2>
 
-  <div id="adminForm">
-    <h2>Agregar resultado</h2>
-    <input type="text" id="partido" placeholder="Partido">
-    <input type="text" id="hora" placeholder="Hora a la que se jugo">
-    <input type="text" id="resultado" placeholder="Resultado partido">
-    <input type="number" id="clasificacion" placeholder="Clasificacion">
-    <button id="btnAgregar">Agregar</button>
-  </div>
+  <table id="tablaClasificaciones">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Puntuacion</th>
+    </tr>
+  </thead>
+  <tbody id="tablaBody"></tbody>
+  </table>
+
+</section>
+</main>
+
 
   <!-- Firebase clásico compat -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
