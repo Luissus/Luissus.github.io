@@ -58,8 +58,8 @@ const horaInput = document.getElementById("hora");
       hoy.getFullYear(),
       hoy.getMonth(),
       hoy.getDate(),
-      parseInt(h),
-      parseInt(m)
+      parseInt(h, 10),
+      parseInt(m, 10)
     );
 
 btnAgregar.addEventListener("click", () => {
