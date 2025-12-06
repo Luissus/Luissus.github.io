@@ -20,8 +20,11 @@ const btnLogin = document.getElementById("btnLogin");
 const adminForm = document.getElementById("adminForm");
 const btnAgregar = document.getElementById("btnAgregar");
 
+
+//#region Mostrar partidos
+
   // Función para mostrar resultados
-  async function mostrarResultados() {
+  async function mostrarPartidos() {
     const tablaBody = document.getElementById("tablaBody");
     tablaBody.innerHTML = ""; // Limpiar tabla
 
@@ -67,67 +70,61 @@ const btnAgregar = document.getElementById("btnAgregar");
     }
   }
 
+//#endregion
+
+
+//#region Mostrar clasificaciones
+
+    // Función para mostrar clasificaciones
+  async function mostrarClasificacion() {
+    const tablaBody = document.getElementById("tablaClasificacionesBody");
+    tablaBody.innerHTML = ""; // Limpiar tabla
+
+    try {
+      //const snapshot = await db.collection("equipos").get();
+      // 🔥 Ordenar por puntuación descendente directamente desde Firestore
+      const snapshot = await db.collection("equipos")
+        .orderBy("puntuacion", "desc")
+        .get();
+
+      if (snapshot.empty) {
+        tablaBody.innerHTML = "<tr><td colspan='4'>No hay resultados</td></tr>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = document.createElement("tr");
+
+        // Cada campo en su celda
+        const nombreEquipo = document.createElement("td");
+        nombreEquipo.textContent = data.nombreEquipo || "";
+
+        const categoria = document.createElement("td");
+        categoria.textContent = data.categoria || "";
+
+        const puntuacion = document.createElement("td");
+        puntuacion.textContent = data.puntuacion || "";
+
+
+        row.appendChild(nombreEquipo);
+        row.appendChild(categoria);
+        row.appendChild(puntuacion);
+
+        tablaBody.appendChild(row);
+      });
+
+    } catch (error) {
+      alert("Error al cargar resultados: " + error.message);
+    }
+  }
+
+//#endregion
+
 // Mostrar resultados al cargar
-mostrarResultados();
-
-// Login administrador
-btnLogin.addEventListener("click", async () => {
-  const email = prompt("Ingresa tu email de administrador:");
-  const password = prompt("Ingresa tu contraseña:");
-  try {
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    alert("Login exitoso");
-    adminForm.style.display = "block"; // Mostrar formulario para admins
-  } catch (error) {
-    alert("Error de login: " + error.message);
-  }
-});
+mostrarPartidos();
+mostrarClasificacion();
 
 
-/**
- * Agrega un partido a Firestore
- * @param {string} nombre - Nombre del partido
- * @param {string} hora - Hora del partido
- * @param {string} resultado - Resultado del partido
- * @param {number} clasificacion
- */
-async function agregarPartido(nombre, hora, resultado, clasificacion) {
-  try {
-    await db.collection("resultadoPartidos").add({
-      nombre: nombre,
-      hora: hora,
-      resultado: resultado,
-      clasificacion: clasificacion
-    });
-    alert("Partido agregado correctamente");
-    mostrarResultados(); // Actualiza la tabla
-  } catch (error) {
-    alert("Error al agregar partido: " + error.message);
-  }
-}
 
 
-//Agregar resultado
-const nombreInput = document.getElementById("partido");
-const horaInput = document.getElementById("hora");
-const resultadoInput = document.getElementById("resultado");
-const clasificacionInput = document.getElementById("clasificacion");
-
-btnAgregar.addEventListener("click", () => {
-  const nombre = nombreInput.value.trim();
-  const hora = horaInput.value.trim();
-  const resultado = resultadoInput.value.trim();
-  const clasificacion = clasificacionInput.value.trim();
-
-  if (!nombre || !hora || !resultado) {
-    alert("Rellena todos los campos");
-    return;
-  }
-
-  agregarPartido(nombre, hora, resultado, clasificacion);
-
-  // Limpiar inputs
-  nombreInput.value = "";
-  horaInput.value = "";
-  resultadoInput.value = "";
-});

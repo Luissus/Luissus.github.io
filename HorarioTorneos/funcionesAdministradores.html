@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+      <button id="btnLogin">Iniciar sesión administrador</button>
+
+  <div id="adminForm">
+    <h2>Agregar resultado</h2>
+    <input type="text" id="nombreEquipoLocal" placeholder="Nombre equipo local">
+    <input type="text" id="nombreEquipoVisitante" placeholder="Nombre equipo visitante">
+    <input type="time" id="hora" placeholder="Hora">
+    <input type="number" id="golesEquipoLocal" placeholder="Goles equipo local">
+    <input type="number" id="golesEquipoVisitante" placeholder="Goles equipo visitante">
+    <button id="btnAgregar">Agregar</button>
+  </div>
+
+
+  <div>
+      <h2>Agregar Categoria</h2>
+      <input type="text" id="categoriaEquipo" placeholder="Nueva categoria">
+      <button id="btnNuevaCategoria">Agregar categoria</button>
+  </div>
+
+
+  <div>
+    <h2>Eliminar Categoria</h2>
+    <select id="selectCategoriasElimiar">
+      <option value="">--Selecciona una categoría--</option>
+    </select>
+    <button id="btnEliminarCategoria">Eliminar categoria</button>
+  </div>
+
+  <div>
+    <h2>Añadir equipo</h2>
+    <input type="text"  id="nombreEquipo" placeholder="Nombre equipo">
+    <select id="selectCategoriasEquipo">
+      <option value="">--Selecciona una categoría--</option>
+    </select>
+    <button id="btnAgregarEquipo">Agregar Equipo</button>
+  </div>
+
+
+     <!-- Firebase clásico compat -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="funcionesAdministradores.js"></script>
+</body>
+</html>
