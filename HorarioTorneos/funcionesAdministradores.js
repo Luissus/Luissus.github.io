@@ -49,7 +49,9 @@ const golesEquipoLocalInput = document.getElementById("golesEquipoLocal");
 const golesEquipoVisitanteInput = document.getElementById("golesEquipoVisitante");
 const horaInput = document.getElementById("hora");
 
-//Combina la hora que se da por el html con el dia actual para que firebase lo reconozca
+btnAgregar.addEventListener("click", () => {
+
+  //Combina la hora que se da por el html con el dia actual para que firebase lo reconozca
     const hoy = new Date();  // Fecha actual completa
     // Separar horas y minutos del input
     const [h, m] = horaInput.value.split(":");
@@ -62,14 +64,14 @@ const horaInput = document.getElementById("hora");
       parseInt(m, 10)
     );
 
-btnAgregar.addEventListener("click", () => {
+
   const nombreEquipoLocal = nombreEquipoLocalInput.value.trim();
   const nombreEquipoVisitante = nombreEquipoVisitanteInput.value.trim();
   const hora = fechaConHora;
   const golesEquipoLocal = golesEquipoLocalInput.value.trim();
   const golesEquipoVisitante = golesEquipoVisitanteInput.value.trim();
 
-
+  
   if (!nombreEquipoLocal || !nombreEquipoVisitante || !hora || !golesEquipoLocal || !golesEquipoVisitante) {
     alert("Rellena todos los campos");
     return;
