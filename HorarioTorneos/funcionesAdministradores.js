@@ -14,21 +14,22 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-const btnLogin = document.getElementById("btnLogin");
-const btnAgregar = document.getElementById("btnAgregar");
-const btnNuevaCategoria = document.getElementById("btnNuevaCategoria");
+
+
+
 
 
 //#region Login admiistrador
 
 // Login administrador
+const btnLogin = document.getElementById("btnLogin");
+
 btnLogin.addEventListener("click", async () => {
   const email = prompt("Ingresa tu email de administrador:");
   const password = prompt("Ingresa tu contraseña:");
   try {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     alert("Login exitoso");
-    adminForm.style.display = "block"; // Mostrar formulario para admins
   } catch (error) {
     alert("Error de login: " + error.message);
   }
@@ -47,6 +48,7 @@ const selectNombreEquipoVisitante = document.getElementById("selectNombreEquipoV
 const golesEquipoLocalInput = document.getElementById("golesEquipoLocal");
 const golesEquipoVisitanteInput = document.getElementById("golesEquipoVisitante");
 const horaInput = document.getElementById("hora");
+const btnAgregar = document.getElementById("btnAgregar");
 
 //Mostrar los equipos mas adelante cambiara de sitio
 mostrarEquipos(selectNombreEquipoLocal);
@@ -86,9 +88,9 @@ btnAgregar.addEventListener("click", () => {
   // Limpiar inputs
   selectNombreEquipoLocal.innerHTML = '<option value="">--Seleccione un equipo--</option>';
   selectNombreEquipoVisitante.innerHTML = '<option value="">--Seleccione un equipo--</option>';
-  horaInput = "";
-  golesEquipoLocalInput = "";
-  golesEquipoVisitanteInput = "";
+  horaInput.value = "";
+  golesEquipoLocalInput.value = "";
+  golesEquipoVisitanteInput.value = "";
 });
 
 
@@ -127,6 +129,7 @@ async function agregarPartido(nombreEquipoLocal, nombreEquipoVisitante, hora, go
 //Boton Nueva Categoria
 //Coge los valores de los input
 const nuevaCategoriaIput = document.getElementById("categoriaEquipo");
+const btnNuevaCategoria = document.getElementById("btnNuevaCategoria");
 
 btnNuevaCategoria.addEventListener("click", () =>{
     const nuevaCategoria = nuevaCategoriaIput.value.trim();
@@ -138,7 +141,7 @@ btnNuevaCategoria.addEventListener("click", () =>{
     agregarCategoria(nuevaCategoria);
 
     //Limpia los input
-    nuevaCategoriaIput = "";
+    nuevaCategoriaIput.value = "";
 });
 
 //Agrega Categoria
@@ -163,7 +166,7 @@ async function agregarCategoria(nuevaCategoria) {
 
 //Boton eliminar Categoria
 //Coge el valor del input
-const selectCategoriasEliminar = document.getElementById("selectCategoriasElimiar")
+const selectCategoriasEliminar = document.getElementById("selectCategoriasEliminar")
 const btnEliminarCategoria = document.getElementById("btnEliminarCategoria");
 
 btnEliminarCategoria.addEventListener("click", () => {
@@ -246,7 +249,7 @@ mostrarCategorias(selectCategoriasEliminar);
     agregarEquipo(nombreEquipo, categoria, puntuacion);
 
     //Limpiar los input
-    nombreEquipoInput = "";
+    nombreEquipoInput.value = "";
     selectCategoriasEquipo.innerHTML = '<option value="">--Selecciona una categoría--</option>';
 
 
