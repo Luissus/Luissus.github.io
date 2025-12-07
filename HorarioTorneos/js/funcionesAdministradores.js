@@ -18,7 +18,7 @@ const db = firebase.firestore();
 
 
 
-
+/*
 //#region Login admiistrador
 
 // Login administrador
@@ -36,7 +36,7 @@ btnLogin.addEventListener("click", async () => {
 });
 
 //#endregion
-
+*/
 //#region Partidos
 
 //#region Agregar partido

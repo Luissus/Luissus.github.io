@@ -31,7 +31,7 @@ btnLogin.addEventListener("click", async () => {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     alert("Login exitoso");
     //Redirije a la pagina fuciones de administrador
-     window.location.href = "/html/funcionesAdministradores.html";
+     window.location.href = "../html/funcionesAdministradores.html";
   } catch (error) {
     alert("Error de login: " + error.message);
   }
