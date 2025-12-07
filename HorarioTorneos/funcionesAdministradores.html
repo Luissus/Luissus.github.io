@@ -11,8 +11,12 @@
 
   <div id="adminForm">
     <h2>Agregar resultado</h2>
-    <input type="text" id="nombreEquipoLocal" placeholder="Nombre equipo local">
-    <input type="text" id="nombreEquipoVisitante" placeholder="Nombre equipo visitante">
+    <select id="selectNombreEquipoLocal">
+      <option value="">--Seleccione un equipo--</option>
+    </select>
+    <select id="selectNombreEquipoVisitante">
+      <option value="">--Seleccione un equipo--</option>
+    </select>
     <input type="time" id="hora" placeholder="Hora">
     <input type="number" id="golesEquipoLocal" placeholder="Goles equipo local">
     <input type="number" id="golesEquipoVisitante" placeholder="Goles equipo visitante">
@@ -42,6 +46,14 @@
       <option value="">--Selecciona una categoría--</option>
     </select>
     <button id="btnAgregarEquipo">Agregar Equipo</button>
+  </div>
+
+  <div>
+    <h2>Eliminar equipo</h2>
+    <select id="selectEquipos">
+      <option value="">--Selecciona un equipo--</option>
+    </select>
+    <button id="btnEliminarEquipo">Eliminar equipo</button>
   </div>
 
 

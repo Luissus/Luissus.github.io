@@ -43,11 +43,16 @@ btnLogin.addEventListener("click", async () => {
 
 //Boton agregar partido
 //Coge los valores de los input
-const nombreEquipoLocalInput = document.getElementById("nombreEquipoLocal");
-const nombreEquipoVisitanteInput = document.getElementById("nombreEquipoVisitante");
+const selectNombreEquipoLocal = document.getElementById("selectNombreEquipoLocal");
+const selectNombreEquipoVisitante = document.getElementById("selectNombreEquipoVisitante");
 const golesEquipoLocalInput = document.getElementById("golesEquipoLocal");
 const golesEquipoVisitanteInput = document.getElementById("golesEquipoVisitante");
 const horaInput = document.getElementById("hora");
+
+//Mostrar los equipos mas adelante cambiara de sitio
+mostrarEquipos(selectNombreEquipoLocal);
+mostrarEquipos(selectNombreEquipoVisitante);
+
 
 btnAgregar.addEventListener("click", () => {
 
@@ -65,14 +70,14 @@ btnAgregar.addEventListener("click", () => {
     );
 
 
-  const nombreEquipoLocal = nombreEquipoLocalInput.value.trim();
-  const nombreEquipoVisitante = nombreEquipoVisitanteInput.value.trim();
+  const nombreEquipoLocal = selectNombreEquipoLocal.options[selectNombreEquipoLocal.selectedIndex].text;
+  const nombreEquipoVisitante = selectNombreEquipoVisitante.options[selectNombreEquipoVisitante.selectedIndex].text;
   const hora = fechaConHora;
   const golesEquipoLocal = golesEquipoLocalInput.value.trim();
   const golesEquipoVisitante = golesEquipoVisitanteInput.value.trim();
 
   
-  if (!nombreEquipoLocal || !nombreEquipoVisitante || !hora || !golesEquipoLocal || !golesEquipoVisitante) {
+  if (selectNombreEquipoLocal.value == "" || selectNombreEquipoVisitante.value == "" || !hora || !golesEquipoLocal || !golesEquipoVisitante) {
     alert("Rellena todos los campos");
     return;
   }
@@ -80,8 +85,8 @@ btnAgregar.addEventListener("click", () => {
   agregarPartido(nombreEquipoLocal, nombreEquipoVisitante, hora, golesEquipoLocal, golesEquipoVisitante);
 
   // Limpiar inputs
-  nombreEquipoLocalInput = "";
-  nombreEquipoVisitanteInput = "";
+  selectNombreEquipoLocal.innerHTML = '<option value="">--Seleccione un equipo--</option>';
+  selectNombreEquipoVisitante.innerHTML = '<option value="">--Seleccione un equipo--</option>';
   horaInput = "";
   golesEquipoLocalInput = "";
   golesEquipoVisitanteInput = "";
@@ -163,7 +168,7 @@ const btnEliminarCategoria = document.getElementById("btnEliminarCategoria");
 
 btnEliminarCategoria.addEventListener("click", () => {
     //Envia el id de la categoria
-    eliminarCategoria(selectCategoriasEli.value);
+    eliminarCategoria(selectCategoriasEliminar.value);
 
     //Limpia el select de categorias
     selectCategoriasEliminar.innerHTML = '<option value="">--Selecciona una categoría--</option>';
@@ -208,6 +213,7 @@ async function mostrarCategorias(selectCategorias) {
 
 // Cargar categorías al inicio
 mostrarCategorias(selectCategoriasEliminar);
+
 //#endregion
 
 //#endregion
@@ -219,8 +225,118 @@ mostrarCategorias(selectCategoriasEliminar);
 
 //#region Agregar equipo
 
+  const nombreEquipoInput = document.getElementById("nombreEquipo");
+  const selectCategoriasEquipo = document.getElementById("selectCategoriasEquipo");
+  const btnAgregarEquipo = document.getElementById("btnAgregarEquipo");
+
+  //Muestra el select de categorias (mas adelante lo movere de sitio);
+  mostrarCategorias(selectCategoriasEquipo);
+
+  btnAgregarEquipo.addEventListener("click", () => {
+
+    const nombreEquipo = nombreEquipoInput.value.trim();
+    const categoria = selectCategoriasEquipo.options[selectCategoriasEquipo.selectedIndex].text;
+    const puntuacion = 0;
+  
+    if(!nombreEquipo || !categoria || selectCategoriasEquipo.value == ""){
+      alert("Rellene todos los campos");
+      return;
+    }
+    agregarEquipo(nombreEquipo, categoria, puntuacion);
+
+    //Limpiar los input
+    nombreEquipoInput = "";
+    selectCategoriasEquipo.innerHTML = '<option value="">--Selecciona una categoría--</option>';
+
+
+  });
+
+  //Agregar equipo
+/**
+ * @param {string} nombreEquipo
+ * @param {string} categoriaEquipo
+ * @param {number} putuacion
+ */
+
+async function agregarEquipo(nombreEquipo, categoria, puntuacion) {
+    try {
+    await db.collection("equipos").add({
+      nombreEquipo: nombreEquipo,
+      categoria: categoria,
+      puntuacion: puntuacion
+    });
+    alert("Equipo agregada correctamente");
+  } catch (error) {
+    alert("Error al agregar equipo: " + error.message);
+  }
+}
+
+//#endregion
+
+//#region Eliminar equipo
+
+const selectEquipos = document.getElementById("selectEquipos");
+const btnEliminarEquipo = document.getElementById("btnEliminarEquipo");
+//Muestra el select de equipos (mas adelante se movera de sitio);
+mostrarEquipos(selectEquipos);
+
+btnEliminarEquipo.addEventListener("click", () => {
+  const nombreEquipo = selectEquipos.options[selectEquipos.selectedIndex].text;
+
+  if(selectEquipos.value == ""){
+    alert("Rellene todos los campos");
+    return;
+  }
+  eliminarEquipo(nombreEquipo);
+
+  //Limpiar los input
+  selectEquipos.innerHTML = '<option value="">--Seleccione un equipo--</option>';
+
+});
+
+
+//Elimina equipo de firebase
+async function eliminarEquipo(nombreEquipo) {
+  const ref = db.collection("equipos");
+  const snap = await ref.where("nombreEquipo", "==", nombreEquipo).get();
+
+  if (snap.empty) {
+    alert("No existe un equipo con ese nombre");
+    return;
+  }
+
+  const id = snap.docs[0].id;  // El primer resultado
+  await ref.doc(id).delete();
+
+  alert("Equipo eliminado");
+}
+
+
+//#endregion
+
+//#region Mostrar equipos
+
+async function mostrarEquipos(selectEquipos) {
+  selectEquipos.innerHTML = '<option value="">--Selecciona un equipo--</option>'; // Limpiar y poner opción por defecto
+    
+  try {
+    const snapshot = await db.collection("equipos").get();
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const option = document.createElement("option");
+      option.value = doc.id;      // Guardamos el ID del documento
+      option.textContent = data.nombreEquipo; // Mostramos el nombre de la categoría
+      selectEquipos.appendChild(option);
+    });
+
+  } catch (error) {
+    console.error("Error al cargar equipos:", error);
+  }
+}
+
+//#endregion
 
 //#endregion
 
 
-//#endregion
