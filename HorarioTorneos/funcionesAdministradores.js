@@ -19,7 +19,6 @@ const btnAgregar = document.getElementById("btnAgregar");
 const btnNuevaCategoria = document.getElementById("btnNuevaCategoria");
 
 
-
 //#region Login admiistrador
 
 // Login administrador
@@ -112,7 +111,7 @@ async function agregarPartido(nombreEquipoLocal, nombreEquipoVisitante, hora, go
       golesEquipoVisitante: golesEquipoVisitante
     });
     alert("Partido agregado correctamente");
-    // Esto alomejor ya no es necesario  mostrarResultados(); // Actualiza la tabla
+    location.reload();
   } catch (error) {
     alert("Error al agregar partido: " + error.message);
   }
@@ -153,6 +152,7 @@ async function agregarCategoria(nuevaCategoria) {
       categoria: nuevaCategoria
     });
     alert("Categoria agregada correctamente");
+    location.reload();
   } catch (error) {
     alert("Error al agregar categoria: " + error.message);
   }
@@ -183,6 +183,7 @@ async function eliminarCategoria(categoriaEliminar) {
     try {
     await db.collection("categorias").doc(categoriaEliminar).delete();
     alert("Categoria eliminada correctamente");
+    location.reload();
   } catch (error) {
     console.error("Error al eliminar la categoria:", error);
   }
@@ -266,6 +267,7 @@ async function agregarEquipo(nombreEquipo, categoria, puntuacion) {
       puntuacion: puntuacion
     });
     alert("Equipo agregada correctamente");
+    location.reload();
   } catch (error) {
     alert("Error al agregar equipo: " + error.message);
   }
@@ -309,6 +311,7 @@ async function eliminarEquipo(nombreEquipo) {
   await ref.doc(id).delete();
 
   alert("Equipo eliminado");
+  location.reload();
 }
 
 
@@ -337,6 +340,127 @@ async function mostrarEquipos(selectEquipos) {
 
 //#endregion
 
+//#region Sumar puntuacion a cada equipo
+const selectEquiposSumarPuntos = document.getElementById("selectEquiposSumarPuntos");
+const puntuacionSumarEquipoInput = document.getElementById("puntuacionSumarEquipo");
+const btnSumarPuntuacionEquipo = document.getElementById("btnSumarPuntuacionEquipo");
+
+//Muestra el select de equipos
+mostrarEquipos(selectEquiposSumarPuntos);
+
+btnSumarPuntuacionEquipo.addEventListener("click", () => {
+  const puntuacionSumarEquipo = puntuacionSumarEquipoInput.value.trim();
+  const idEquipoSumarPuntos = selectEquiposSumarPuntos.value;
+
+  if(selectEquiposSumarPuntos.value == "" || !idEquipoSumarPuntos){
+    alert ("Rellene todos los campos");
+    return;
+  }
+  sumarPuntosEquipo(idEquipoSumarPuntos, puntuacionSumarEquipo);
+
+  //Limpiar los inputs
+  selectEquiposSumarPuntos.innerHTML = '<option value="">--Selecciona un equipo--</option>';
+  puntuacionSumarEquipoInput.value = "";
+});
+
+//Suma puntuacion en firebase
+
+/**
+ * @param {string} idEquipoSumarPuntos
+ * @param {number} puntuacionSumarEquipo
+ */
+async function sumarPuntosEquipo(idEquipoSumarPuntos, puntuacionSumarEquipo) {
+  try {
+        await db.collection("equipos").doc(idEquipoSumarPuntos).update({
+            puntuacion: firebase.firestore.FieldValue.increment(puntuacionSumarEquipo)
+        });
+        alert("Puntos sumados correctamente");
+        location.reload();
+    } catch (err) {
+        alert("Error al sumar puntos:", err);
+    }
+}
+
+//#endregion
+
+//#region Restar puntuacion a cada equipo
+
+const selectEquiposRestarPuntos = document.getElementById("selectEquiposRestarPuntos");
+const puntuacionRestarEquipoInput = document.getElementById("puntuacionRestarEquipo");
+const btnRestarPuntuacionEquipo = document.getElementById("btnRestarPuntuacionEquipo");
+
+//Muestra el select de equipos
+mostrarEquipos(selectEquiposRestarPuntos);
+
+btnRestarPuntuacionEquipo.addEventListener("click", () => {
+  const puntuacionRestarEquipo = puntuacionRestarEquipoInput.value.trim();
+  const idEquipoRestarPuntos = selectEquiposRestarPuntos.value;
+
+  if(selectEquiposRestarPuntos.value == "" || !idEquipoRestarPuntos){
+    alert ("Rellene todos los campos");
+    return;
+  }
+  restarPuntosEquipo(idEquipoRestarPuntos, puntuacionRestarEquipo);
+
+  //Limpiar los inputs
+  selectEquiposRestarPuntos.innerHTML = '<option value="">--Selecciona un equipo--</option>';
+  puntuacionRestarEquipoInput.value = "";
+});
+
+//Suma puntuacion en firebase
+
+/**
+ * @param {string} idEquipoRestarPuntos
+ * @param {number} puntuacionRestarEquipo
+ */
+async function restarPuntosEquipo(idEquipoRestarPuntos, puntuacionRestarEquipo) {
+  try {
+        await db.collection("equipos").doc(idEquipoRestarPuntos).update({
+            puntuacion: firebase.firestore.FieldValue.increment(puntuacionRestarEquipo * -1)
+        });
+        alert("Puntos restados correctamente");
+        location.reload();
+    } catch (err) {
+        alert("Error al restar puntos:", err);
+    }
+}
+
+//#endregion
+
 //#endregion
 
 
+//#region Menu desplegable para opciones
+
+// Primer nivel: abrir sección principal
+document.querySelectorAll('.menu-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const options = btn.nextElementSibling;
+
+        // Abrir o cerrar
+        if (options.style.maxHeight && options.style.maxHeight !== "0px") {
+            options.style.maxHeight = null;
+        } else {
+            // Forzar que los hijos se rendericen antes de calcular altura
+            requestAnimationFrame(() => {
+                const totalHeight = Array.from(options.children)
+                    .reduce((sum, child) => sum + child.scrollHeight + 10, 0); // 10px margen
+                options.style.maxHeight = totalHeight + "px";
+            });
+        }
+    });
+});
+
+// Segundo nivel: abrir formulario de cada opción
+document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
+});
+
+//#endregion

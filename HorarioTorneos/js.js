@@ -21,6 +21,18 @@ const adminForm = document.getElementById("adminForm");
 const btnAgregar = document.getElementById("btnAgregar");
 
 
+//#region Actualizar la pagina cada 10 mituos
+
+// Cada 10 minutos (10 * 60 * 1000 ms)
+const intervaloRecarga = 10 * 60 * 1000;
+
+setInterval(() => {
+    console.log("Recargando la página automáticamente cada 10 minutos...");
+    location.reload();
+}, intervaloRecarga);
+
+//#endregion
+
 //#region Mostrar partidos
 
   // Función para mostrar resultados
