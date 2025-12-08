@@ -4,10 +4,9 @@ body {
   background-color: #d8f0c8;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
 }
 
-/* Cabecera */
 header {
   width: 100%;
   background-color: #2e7d32;
@@ -30,23 +29,32 @@ header h1 {
   font-size: 2rem;
 }
 
-/* Contenedor de botones */
+/* Contenedor principal de botones centrados */
+.main-buttons-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .main-buttons {
   display: flex;
-  flex-direction: column; /* Cambiado a columna */
-  gap: 20px;              /* Espacio entre botones */
-  margin: 100px 0;
-  align-items: center;    /* Centra los botones horizontalmente */
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px; /* Todos los botones tendrán el mismo ancho */
 }
 
 .main-buttons button {
+  width: 100%;            /* Ocupa todo el ancho del contenedor */
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 10px;
-  padding: 20px 40px;
+  padding: 15px 0;
   font-size: 1.2rem;
   cursor: pointer;
+  text-align: center;
   transition: background-color 0.3s;
 }
 
@@ -54,7 +62,6 @@ header h1 {
   background-color: #388e3c;
 }
 
-/* Botón de login administrador discreto */
 #btnLoginAdmin {
   position: fixed;
   bottom: 20px;
@@ -75,12 +82,11 @@ header h1 {
 
 @media (max-width: 600px) {
   .main-buttons {
-    flex-direction: column;
-    gap: 20px;
+    max-width: 90%; /* Ajusta ancho para móviles */
   }
 
   .main-buttons button {
-    width: 80%;
-    text-align: center;
+    font-size: 1rem;
+    padding: 12px 0;
   }
 }

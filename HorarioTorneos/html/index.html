@@ -21,22 +21,15 @@
     <img src="../imagenes/logo.jpg" alt="Logo derecha">
   </header>
 
-  <div class="main-buttons">
-    <a href="../html/">
-        <button id="btnHorarioTorneo">Horario Torneo</button>
-    </a>
-    
-    <a href="../html/partidos-clasificaciones.html">
-        <button id="btnPartidos">Partidos y Clasificaciones</button>
-    </a>
-
-    <a href="../html/sorteos.html">
-        <button id="btnSorteos">Sorteos</button>
-    </a>
-
+  <div class="main-buttons-container">
+    <div class="main-buttons">
+      <button id="btnHorarioTorneo" onclick="window.location.href='../html/'">Horario Torneo</button>
+      <button id="btnPartidos" onclick="window.location.href='../html/partidos-clasificaciones.html'">Partidos y Clasificaciones</button>
+      <button id="btnSorteos" onclick="window.location.href='../html/sorteos.html'">Sorteos</button>
+    </div>
   </div>
 
-  <button id="btnLoginAdmin">Login Admin</button>
+<button id="btnLoginAdmin">Login Admin</button>
 
   <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
