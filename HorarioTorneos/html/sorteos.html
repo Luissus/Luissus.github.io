@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Resultados de Partidos</title>
-  <link rel="stylesheet" href="../css/partidos-clasificaciones.css" />
+  <link rel="stylesheet" href="../css/sorteos.css" />
   <link rel="icon" href="../imagenes/logo.jpg" type="image/jpeg">
 </head>
 <body>
@@ -15,23 +15,21 @@
 
   <main class="layout">
   <section class="left-box">
-  <h2>Resultados de Partidos</h2>
+  <h2>Sorteos</h2>
 
-  <table id="tablaResultados">
+  <table id="">
   <thead>
     <tr>
-      <th>Nombre equipo</th>
-      <th>Nombre equipo</th>
-      <th>Dia partido</th>
-      <th>Hora</th>
-      <th>Goles Visitante</th>
-      <th>Goles Local</th>
+      <th>Sorteo</th>
+      <th>Dia sorteo</th>
+      <th>Hora de sorteo</th>
+      <th>Numero ganador</th>
     </tr>
   </thead>
-  <tbody id="tablaBody"></tbody>
+  <tbody id="tablaSorteos"></tbody>
   </table>
   </section>
-
+<!--
 <section class="right-box">
 <h2>Clasificaciones</h2>
 
@@ -47,12 +45,13 @@
   </table>
 
 </section>
+-->
 </main>
 
   <!-- Firebase clásico compat -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="../js/partidos-clasificaciones.js"></script>
+  <script src="../js/sorteos.js"></script>
 </body>
 </html>

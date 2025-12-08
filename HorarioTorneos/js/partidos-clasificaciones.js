@@ -15,10 +15,6 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-const lista = document.getElementById("lista");
-const btnLogin = document.getElementById("btnLogin");
-const adminForm = document.getElementById("adminForm");
-const btnAgregar = document.getElementById("btnAgregar");
 
 
 //#region Actualizar la pagina cada 10 mituos
@@ -41,7 +37,9 @@ setInterval(() => {
     tablaBody.innerHTML = ""; // Limpiar tabla
 
     try {
-      const snapshot = await db.collection("resultados").get();
+      const snapshot = await db.collection("resultados")
+      .orderBy("hora", "desc") //ordena directamente en firebase los resultados poniendo el ultimo primero
+      .get();
 
       if (snapshot.empty) {
         tablaBody.innerHTML = "<tr><td colspan='4'>No hay resultados</td></tr>";
@@ -59,6 +57,9 @@ setInterval(() => {
         const nombreEquipoVisitante = document.createElement("td");
         nombreEquipoVisitante.textContent = data.nombreEquipoVisitante || "";
 
+        const diaPartido = document.createElement("td");
+        diaPartido.textContent = data.hora ? data.hora.toDate().toLocaleDateString("es-ES") : "";
+
         const hora = document.createElement("td");
         hora.textContent = data.hora ? data.hora.toDate().toLocaleTimeString() : "";
 
@@ -70,6 +71,7 @@ setInterval(() => {
 
         row.appendChild(nombreEquipoLocal);
         row.appendChild(nombreEquipoVisitante);
+        row.appendChild(diaPartido);
         row.appendChild(hora);
         row.appendChild(golesEquipoLocal);
         row.appendChild(golesEquipoVisitante);

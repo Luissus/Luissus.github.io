@@ -15,28 +15,21 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 
-
-
-
-/*
-//#region Login admiistrador
-
-// Login administrador
-const btnLogin = document.getElementById("btnLogin");
-
-btnLogin.addEventListener("click", async () => {
-  const email = prompt("Ingresa tu email de administrador:");
-  const password = prompt("Ingresa tu contraseña:");
-  try {
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    alert("Login exitoso");
-  } catch (error) {
-    alert("Error de login: " + error.message);
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (user) {
+    // Verificar si es admin
+    const userDoc = await db.collection("users").doc(user.uid).get();
+    if (!userDoc.exists || !userDoc.data().admin) {
+      alert("No tienes permisos de administrador");
+      window.location.href = "../html/index.html"; // Redirigir al inicio
+    }
+  } else {
+    // Usuario no logueado
+    window.location.href = "../html/index.html"; // Redirigir a login
   }
 });
 
-//#endregion
-*/
+
 //#region Partidos
 
 //#region Agregar partido
@@ -122,8 +115,8 @@ async function agregarPartido(nombreEquipoLocal, nombreEquipoVisitante, hora, go
 
 //#region Mostrar partidos
 
-async function mostrarPartidos(selectPartidos) {
-  selectPartidos.innerHTML = '<option value="">--Selecciona un partido--</option>';
+async function mostrarPartidos(selectSorteos) {
+  selectSorteos.innerHTML = '<option value="">--Selecciona un partido--</option>';
 
   try {
     const snapshot = await db.collection("resultados").get();
@@ -133,7 +126,7 @@ async function mostrarPartidos(selectPartidos) {
       const option = document.createElement("option");
       option.value = doc.id; // Guardamos el ID del documento
       option.textContent = `${data.nombreEquipoLocal} vs ${data.nombreEquipoVisitante} (${new Date(data.hora.seconds*1000).toLocaleString()})`;
-      selectPartidos.appendChild(option);
+      selectSorteos.appendChild(option);
     });
 
   } catch (error) {
@@ -148,13 +141,13 @@ async function mostrarPartidos(selectPartidos) {
 const btnModificarPartido = document.getElementById("btnModificarPartido");
 const golesEquipoLocalModificar = document.getElementById("golesEquipoLocalModificar");
 const golesEquipoVisitanteModificar = document.getElementById("golesEquipoVisitanteModificar");
-const selectPartidos = document.getElementById("selectPartidos"); // Select que contiene los partidos
+const selectSorteos = document.getElementById("selectSorteos"); // Select que contiene los partidos
 
 //Muestra los partidos
-mostrarPartidos(selectPartidos);
+mostrarPartidos(selectSorteos);
 
 btnModificarPartido.addEventListener("click", () => {
-  const idPartido = selectPartidos.value;
+  const idPartido = selectSorteos.value;
   const golesLocal = parseInt(golesEquipoLocalModificar.value.trim(), 10);
   const golesVisitante = parseInt(golesEquipoVisitanteModificar.value.trim(), 10);
 
@@ -182,6 +175,40 @@ async function modificarPartido(idPartido, golesLocal, golesVisitante) {
     location.reload();
   } catch (error) {
     alert("Error al modificar el partido: " + error.message);
+  }
+}
+
+//#endregion
+
+//#region Elimiar Partido
+
+const selectPartidosEliminar = document.getElementById("selectPartidosEliminar");
+const btnEliminarPartido = document.getElementById("btnEliminarPartido");
+
+//Muestra los partidos
+mostrarPartidos(selectPartidosEliminar);
+
+btnEliminarPartido.addEventListener("click", () => {
+  const idPartidoEliminar = selectPartidosEliminar.value;
+
+  if(selectPartidosEliminar.value == ""){
+    alert("Rellene todos los campos");
+    return;
+  }
+  eliminarPartido(idPartidoEliminar);
+});
+
+//Elimina el partido de firebase
+/**
+ * @param {string} idPartidoEliminar 
+ */
+async function eliminarPartido(idPartidoEliminar) {
+  try {
+    await db.collection("resultados").doc(idPartidoEliminar).delete();
+    alert("Partido eliminado correctamente");
+    location.reload();
+  } catch (error) {
+    console.error("Error al eliminar partido:", error);
   }
 }
 
@@ -500,6 +527,121 @@ async function restarPuntosEquipo(idEquipoRestarPuntos, puntuacionRestarEquipo) 
 
 //#endregion
 
+//#region Sorteos
+
+//#region Mostrar Sorteos
+
+async function mostrarSorteos(selectSorteos) {
+  selectSorteos.innerHTML = '<option value="">--Selecciona un sorteo--</option>';
+
+  try {
+    const snapshot = await db.collection("sorteos").get();
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const option = document.createElement("option");
+      option.value = doc.id; // Guardamos el ID del documento
+      option.textContent = data.nombreSorteo;;
+      selectSorteos.appendChild(option);
+    });
+
+  } catch (error) {
+    console.error("Error al cargar sorteos:", error);
+  }
+}
+
+//#endregion
+
+//#region Agregar sorteo
+
+  const nombreSorteoAgregarInput = document.getElementById("nombreSorteoAgregar");
+  const fechaHoraInputSorteo = document.getElementById("fechaHoraSorteo");
+  const btnAgregarSorteo = document.getElementById("btnAgregarSorteo");
+
+  btnAgregarSorteo.addEventListener("click", () => {
+    const nombreSorteoAgregar = nombreSorteoAgregarInput.value.trim();
+    const fechaHoraSorteo = new Date(fechaHoraInputSorteo.value);
+
+    if(!nombreSorteoAgregar || !fechaHoraSorteo){
+      alert("Rellene todos los campos");
+      return;
+    }
+    
+    agregarSorteo(nombreSorteoAgregar, fechaHoraSorteo);
+
+    //Limpiar los input
+    nombreSorteoAgregarInput.value = "";
+    fechaHoraInputSorteo = "";
+  });
+
+
+  /**
+ * Agrega un sorteo a Firestore
+ * @param {string} nombreSorteo 
+ * @param {timestap} fechaHoraSorteo
+ */
+  async function agregarSorteo(nombreSorteo, fechaHoraSorteo) {
+    try {
+    await db.collection("sorteos").add({
+      nombreSorteo: nombreSorteo,
+      fechaHoraSorteo: fechaHoraSorteo,
+      numeroGanador: ""
+    });
+    alert("Sorteo agregado correctamente");
+    location.reload();
+  } catch (error) {
+    alert("Error al agregar sorteo: " + error.message);
+  }
+  }
+
+
+//#endregion
+
+//#region Decir numero ganador sorteo
+
+  const selectNumeroGanadorSorteo = document.getElementById("selectNumeroGanadorSorteo");
+  const numeroGanadorSorteoInput = document.getElementById("numeroGanadorSorteo");
+  const btnNumeroGanadorSorteo = document.getElementById("btnNumeroGanadorSorteo");
+
+  //Muestra los sorteos
+  mostrarSorteos(selectNumeroGanadorSorteo);
+
+  btnNumeroGanadorSorteo.addEventListener("click", () => {
+    const idSorteo = selectNumeroGanadorSorteo.value;
+    const numeroGanador = numeroGanadorSorteoInput.value;
+
+    if(selectNumeroGanadorSorteo.value == "" || !numeroGanador){
+      alert("Rellene todos los campos");
+      return;
+    }
+
+    numeroGanadorSorteo(idSorteo, numeroGanador);
+
+    //limpiar los input
+    selectNumeroGanadorSorteo.innerHTML = '<option value="">--Selecciona un sorteo--</option>'
+    numeroGanadorSorteoInput.value = "";
+
+  });
+
+  /** Pone el numero ganador en el sorteo en firebase
+ * @param {string} idSorteo
+ * @param {number} numeroGanador
+ */
+  async function numeroGanadorSorteo(idSorteo, numeroGanador) {
+    try {
+        await db.collection("sorteos").doc(idSorteo).update({
+            numeroGanador: numeroGanador
+        });
+        alert("Numero ganador actualicado correctamente");
+        location.reload();
+    } catch (err) {
+        alert("Error al actualizar numero ganador:", err);
+    }
+  }
+
+//#endregion
+
+//#endregion
 
 //#region Menu desplegable para opciones
 

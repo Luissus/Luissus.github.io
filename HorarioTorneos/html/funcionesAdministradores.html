@@ -9,14 +9,20 @@
 </head>
 <body>
 
-<h1>Panel de Administración</h1>
+<header>
+  <img src="../imagenes/logo.jpg" alt="Logo izquierda">
+  <h1>Torneo Noja</h1>
+  <h1>Panel de Administración</h1>
+  <img src="../imagenes/logo.jpg" alt="Logo derecha">
+</header> 
+
+
 
 
 <div class="menu">
 
-  <!--#region Clasificaciones-->
+  <!--#region Partidos-->
 
-    <!-- Sección Clasificaciones -->
     <button class="menu-btn">Partidos</button>
     <div class="menu-options">
         <button class="option-btn">Agregar partido</button>
@@ -42,6 +48,14 @@
           <input type="number" id="golesEquipoLocalModificar" placeholder="Goles equipo local">
           <input type="number" id="golesEquipoVisitanteModificar" placeholder="Goles equipo visitante">
           <button id="btnModificarPartido">Modificar</button>
+        </div>
+
+        <button class="option-btn">Eliminar partido</button>
+        <div class="option-content">
+          <select id="selectPartidosEliminar">
+            <option value="">--Selecciona un partido</option>
+          </select>
+          <button id="btnEliminarPartido">Eliminar partido</button>
         </div>
     </div>
 
@@ -110,7 +124,37 @@
 
   <!-- #endregion -->
 
+  <!--#region Sorteos-->
+
+    <button class="menu-btn">Sorteos</button>
+    <div class="menu-options">
+      
+      <button class="option-btn">Agregar sorteo</button>
+      <div class="option-content">
+        <input type="text" id="nombreSorteoAgregar">
+        <input type="datetime-local" id="fechaHoraSorteo">
+        <button id="btnAgregarSorteo">Agregar sorteo</button>
+      </div>
+
+      <button class="option-btn">Numero ganador</button>
+      <div class="option-content">
+        <select id="selectNumeroGanadorSorteo">
+          <option value="">--Selecciona un sorteo--</option>
+        </select>
+        <input type="number" id="numeroGanadorSorteo">
+        <button id="btnNumeroGanadorSorteo">Numero ganador</button>
+      </div>
+    </div>
+
+    
+
+  <!-- #endregion -->
+
 </div>
+
+<a href="../html/partidos-clasificaciones.html">
+  <button id="btnLoginAdmin">Partidos Clasificaciones</button>
+</a>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
