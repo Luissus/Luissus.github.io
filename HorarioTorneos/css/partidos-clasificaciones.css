@@ -10,6 +10,28 @@ html, body {
   background: #d9fdd3;
 }
 
+/* Estilo para títulos de categoría */
+.right-box h3 {
+  text-align: center;
+  color: #2e7d32;        /* Verde oscuro, a juego con tu tema */
+  font-size: 1.5rem;     /* Más pequeño que h2 */
+  margin: 25px 0 15px 0; /* Separación arriba y abajo */
+  padding: 10px 0;
+  background-color: #d8f0c8; /* Fondo suave */
+  border-radius: 10px;        /* Bordes redondeados */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+.right-box h3::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #4caf50;
+  margin: 8px auto 0 auto;
+  border-radius: 2px;
+}
+
 /* ---------------------------------------------------------
    HEADER
 --------------------------------------------------------- */

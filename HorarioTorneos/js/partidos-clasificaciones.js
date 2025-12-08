@@ -86,7 +86,7 @@ setInterval(() => {
 
 //#endregion
 
-
+/*
 //#region Mostrar clasificaciones
 
     // Función para mostrar clasificaciones
@@ -134,7 +134,85 @@ setInterval(() => {
   }
 
 //#endregion
+*/
 
+//#region Mostrar clasificaciones por categorias
+
+async function mostrarClasificacion() {
+  const contenedor = document.getElementById("contenedorClasificaciones");
+  contenedor.innerHTML = ""; // Limpiar contenedor
+
+  try {
+    const snapshot = await db.collection("equipos")
+      .orderBy("puntuacion", "desc")
+      .get();
+
+    if (snapshot.empty) {
+      contenedor.innerHTML = "<p>No hay resultados</p>";
+      return;
+    }
+
+    // Agrupar equipos por categoría
+    const categorias = {};
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const cat = data.categoria || "Sin categoría";
+      if (!categorias[cat]) categorias[cat] = [];
+      categorias[cat].push(data);
+    });
+
+    // Por cada categoría crear tabla
+    for (const cat in categorias) {
+      const equipos = categorias[cat];
+
+      // Crear título de categoría
+      const titulo = document.createElement("h3");
+      titulo.textContent = cat;
+      contenedor.appendChild(titulo);
+
+      // Crear tabla
+      const tabla = document.createElement("table");
+      tabla.classList.add("tabla-clasificacion");
+
+      // Encabezado
+      const thead = document.createElement("thead");
+      thead.innerHTML = `
+        <tr>
+          <th>Equipo</th>
+          <th>Categoria</th>
+          <th>Puntuacion</th>
+        </tr>
+      `;
+      tabla.appendChild(thead);
+
+      // Cuerpo
+      const tbody = document.createElement("tbody");
+      equipos.forEach(equipo => {
+        const row = document.createElement("tr");
+
+        const nombreTd = document.createElement("td");
+        nombreTd.textContent = equipo.nombreEquipo || "";
+        const categoriaTd = document.createElement("td");
+        categoriaTd.textContent = equipo.categoria || "";
+        const puntuacionTd = document.createElement("td");
+        puntuacionTd.textContent = equipo.puntuacion || "";
+
+        row.appendChild(nombreTd);
+        row.appendChild(categoriaTd);
+        row.appendChild(puntuacionTd);
+        tbody.appendChild(row);
+      });
+
+      tabla.appendChild(tbody);
+      contenedor.appendChild(tabla);
+    }
+
+  } catch (error) {
+    alert("Error al cargar resultados: " + error.message);
+  }
+}
+
+//#endregion
 // Mostrar resultados al cargar
 mostrarPartidos();
 mostrarClasificacion();
