@@ -1,0 +1,223 @@
+/* ---------------------------------------------------------
+   RESET GENERAL
+--------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden !important; /* Arregla hueco blanco derecha */
+  font-family: Arial, sans-serif;
+  background: #d9fdd3;
+}
+
+/* Estilo para títulos de categoría */
+.right-box h3 {
+  text-align: center;
+  color: #2e7d32;        /* Verde oscuro, a juego con tu tema */
+  font-size: 1.5rem;     /* Más pequeño que h2 */
+  margin: 25px 0 15px 0; /* Separación arriba y abajo */
+  padding: 10px 0;
+  background-color: #d8f0c8; /* Fondo suave */
+  border-radius: 10px;        /* Bordes redondeados */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+.right-box h3::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #4caf50;
+  margin: 8px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+.header {
+  display: flex;
+  justify-content: space-between; /* ❌ Cambiado a space-between */
+  align-items: center;
+  padding: 20px;
+  background: #1c7c1c;
+  border-radius: 0 0 20px 20px;
+  gap: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;    /* Ocupa todo el espacio entre las imágenes */
+  min-width: 0;    /* Evita overflow en móviles */
+}
+
+.side-img {
+  width: 110px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------
+   LAYOUT GENERAL
+--------------------------------------------------------- */
+
+/* ❗ FORZAMOS SIEMPRE UNA SOLA COLUMNA (como pediste) */
+.layout {
+  display: flex;
+  flex-direction: column; /* <— SIEMPRE UNA ENCIMA DE OTRA */
+  gap: 35px;
+  padding: 35px;
+  max-width: 900px;       /* Evita que se ensanche y desplace */
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+
+/* Pantallas medianas */
+@media (max-width: 1200px) {
+  .header {
+    flex-wrap: wrap;
+  }
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+
+  .side-img {
+    width: 80px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  .layout {
+    padding: 20px;
+  }
+}
+
+table { border-collapse:collapse; border-spacing:0; empty-cells:show }
+    td, th { vertical-align:top; font-size:10pt;}
+    h1, h2, h3, h4, h5, h6 { clear:both;}
+    p { white-space: nowrap; }
+    ol, ul { margin:0; padding:0;}
+    li { list-style: none; margin:0; padding:0;}
+    span.footnodeNumber { padding-right:1em; }
+    span.annotation_style_by_filter { font-size:95%; font-family:Arial; background-color:#fff000;  margin:0; border:0; padding:0;  }
+    span.heading_numbering { margin-right: 0.8rem; }* { margin:0;}
+    .graphic-Default{ background-color:#729fcf; font-size:12pt; writing-mode:horizontal-tb; direction:ltr;}
+    .table-ta1{ writing-mode:horizontal-tb; direction:ltr; }
+    .cell-Default{ font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; color:#000000; }
+    .cell-ce1{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce10{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce11{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce12{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce13{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce14{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce15{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce16{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce17{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; background-color:#ffffff; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-style:none; border-right-style:none; border-top-style:none; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce18{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce19{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce2{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce20{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce21{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce22{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce23{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffd428; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce24{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce25{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce26{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce27{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce28{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce29{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; background-color:#d1d1d1; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce3{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce30{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce31{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffd7; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce32{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-style:none; border-right-style:none; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce33{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#aeaeae; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce34{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce35{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce36{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffff00; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce37{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ff0000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce38{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#7030a0; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce39{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#00b050; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce4{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce40{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#00b0f0; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce41{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffc000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce42{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce43{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffb9; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce44{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ff7d7d; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce45{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#e59edd; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce46{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#a86ed4; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce47{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#e59edd; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce48{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffd428; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce49{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce5{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce50{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce51{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce52{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#7030a0; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce53{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#00a933; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce54{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#cccccc; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce55{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; background-color:#cccccc; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce56{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffff00; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce57{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#96dcf8; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce58{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffdc6d; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce59{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#f1ab83; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce6{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce60{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#8ed973; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce61{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#069a2e; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce62{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#069a2e; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce63{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#77bc65; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce64{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#8ed973; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce65{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce66{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-style:none; border-left-style:none; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce67{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-style:none; border-left-style:none; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce68{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#d1d1d1; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-style:none; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce69{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-style:none; border-left-style:none; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce7{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-width:0.0261cm; border-top-style:solid; border-top-color:#000000; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce70{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-style:none; border-left-style:none; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce71{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; background-color:#ffffff; border-bottom-style:none; border-left-style:none; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-style:none; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce72{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; background-color:#ffffff; border-bottom-width:0.0261cm; border-bottom-style:solid; border-bottom-color:#000000; border-left-style:none; border-right-width:0.0261cm; border-right-style:solid; border-right-color:#000000; border-top-style:none; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce73{ color:#ffffff; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .cell-ce8{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:middle; background-color:#ffffff; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-style:none; text-align:center ! important; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .cell-ce9{ color:#000000; font-size:11pt; font-family:'Aptos Narrow'; vertical-align:bottom; background-color:#ffffff; border-bottom-style:none; border-left-width:0.0261cm; border-left-style:solid; border-left-color:#000000; border-right-style:none; border-top-style:none; margin-left:0cm; writing-mode:horizontal-tb; direction:ltr;}
+    .col-co1{ width:1.531cm; }
+    .col-co10{ width:1.854cm; }
+    .col-co11{ width:2.417cm; }
+    .col-co12{ width:2.011cm; }
+    .col-co13{ width:2.106cm; }
+    .col-co14{ width:2.249cm; }
+    .col-co15{ width:3.447cm; }
+    .col-co16{ width:2.058cm; }
+    .col-co17{ width:3.064cm; }
+    .col-co18{ width:2.261cm; }
+    .col-co19{ width:2.258cm; }
+    .col-co2{ width:1.866cm; }
+    .col-co3{ width:2.034cm; }
+    .col-co4{ width:2.882cm; }
+    .col-co5{ width:3.039cm; }
+    .col-co6{ width:1.961cm; }
+    .col-co7{ width:3.328cm; }
+    .col-co8{ width:2.801cm; }
+    .col-co9{ width:1.697cm; }
+    .row-ro1{ height:0.452cm; }
+    .row-ro2{ height:0.529cm; }
+    .row-ro3{ height:0.529cm; }
