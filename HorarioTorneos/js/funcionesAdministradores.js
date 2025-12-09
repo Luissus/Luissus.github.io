@@ -43,80 +43,86 @@ const golesEquipoVisitanteInput = document.getElementById("golesEquipoVisitante"
 const horaInput = document.getElementById("hora");
 const btnAgregar = document.getElementById("btnAgregar");
 
-//Mostrar los equipos mas adelante cambiara de sitio
+// Mostrar equipos en los selects
 mostrarEquipos(selectNombreEquipoLocal);
 mostrarEquipos(selectNombreEquipoVisitante);
 
+btnAgregar.addEventListener("click", async () => {
+  const nombreEquipoLocal = selectNombreEquipoLocal.selectedOptions[0]?.getAttribute("data-nombre");
+  const nombreEquipoVisitante = selectNombreEquipoVisitante.selectedOptions[0]?.getAttribute("data-nombre");
+  const categoriaLocal = selectNombreEquipoLocal.selectedOptions[0]?.getAttribute("data-categoria");
+  const categoriaVisitante = selectNombreEquipoVisitante.selectedOptions[0]?.getAttribute("data-categoria");
 
-btnAgregar.addEventListener("click", () => {
-
-  //Combina la hora que se da por el html con el dia actual para que firebase lo reconozca
-    const hoy = new Date();  // Fecha actual completa
-    // Separar horas y minutos del input
-    const [h, m] = horaInput.value.split(":");
-    // Crear un Date combinando la fecha actual con la hora del input
-    const fechaConHora = new Date(
-      hoy.getFullYear(),
-      hoy.getMonth(),
-      hoy.getDate(),
-      parseInt(h, 10),
-      parseInt(m, 10)
-    );
-
-
-  const nombreEquipoLocal = selectNombreEquipoLocal.options[selectNombreEquipoLocal.selectedIndex].text;
-  const nombreEquipoVisitante = selectNombreEquipoVisitante.options[selectNombreEquipoVisitante.selectedIndex].text;
-  const hora = fechaConHora;
-  const golesEquipoLocal = golesEquipoLocalInput.value.trim();
-  const golesEquipoVisitante = golesEquipoVisitanteInput.value.trim();
-
-  
-  if (selectNombreEquipoLocal.value == "" || selectNombreEquipoVisitante.value == "" || !hora || !golesEquipoLocal || !golesEquipoVisitante) {
-    alert("Rellena todos los campos");
+  // Validaciones
+  if (!nombreEquipoLocal || !nombreEquipoVisitante) {
+    alert("Seleccione ambos equipos");
     return;
   }
 
-  agregarPartido(nombreEquipoLocal, nombreEquipoVisitante, hora, golesEquipoLocal, golesEquipoVisitante);
+  if (categoriaLocal !== categoriaVisitante) {
+    alert("Los equipos no pertenecen a la misma categoría");
+    return;
+  }
 
-  // Limpiar inputs
-  selectNombreEquipoLocal.innerHTML = '<option value="">--Seleccione un equipo--</option>';
-  selectNombreEquipoVisitante.innerHTML = '<option value="">--Seleccione un equipo--</option>';
-  horaInput.value = "";
-  golesEquipoLocalInput.value = "";
-  golesEquipoVisitanteInput.value = "";
-});
+  if (!horaInput.value) {
+    alert("Seleccione la hora del partido");
+    return;
+  }
 
+  const [h, m] = horaInput.value.split(":");
+  const hoy = new Date();
+  const fechaConHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate(), parseInt(h, 10), parseInt(m, 10));
 
+  const golesLocal = golesEquipoLocalInput.value.trim();
+  const golesVisitante = golesEquipoVisitanteInput.value.trim();
 
-/**
- * Agrega un partido a Firestore
- * @param {string} nombreEquipoLocal 
- * @param {string} nombreEquipoVisitante
- * @param {timestap} hora
- * @param {number} golesEquipoLocal
- * @param {number} golesEquipoVisitante
- */
-async function agregarPartido(nombreEquipoLocal, nombreEquipoVisitante, hora, golesEquipoLocal, golesEquipoVisitante) {
+  if (!golesLocal || !golesVisitante) {
+    alert("Rellena todos los goles");
+    return;
+  }
+
   try {
-    await db.collection("resultados").add({
-      nombreEquipoLocal: nombreEquipoLocal,
-      nombreEquipoVisitante: nombreEquipoVisitante,
-      hora: hora,
-      golesEquipoLocal: golesEquipoLocal,
-      golesEquipoVisitante: golesEquipoVisitante
-    });
-    alert("Partido agregado correctamente");
-    location.reload();
+    await agregarPartido(
+      nombreEquipoLocal,
+      nombreEquipoVisitante,
+      fechaConHora,
+      golesLocal,
+      golesVisitante,
+      categoriaLocal
+    );
+
+    // Limpiar selects e inputs
+    selectNombreEquipoLocal.selectedIndex = 0;
+    selectNombreEquipoVisitante.selectedIndex = 0;
+    horaInput.value = "";
+    golesEquipoLocalInput.value = "";
+    golesEquipoVisitanteInput.value = "";
+
   } catch (error) {
     alert("Error al agregar partido: " + error.message);
   }
+});
+
+/**
+ * Agrega un partido a Firestore
+ */
+async function agregarPartido(nombreEquipoLocal, nombreEquipoVisitante, fechaConHora, golesEquipoLocal, golesEquipoVisitante, categoria) {
+  await db.collection("resultados").add({
+    nombreEquipoLocal,
+    nombreEquipoVisitante,
+    categoria,
+    hora: firebase.firestore.Timestamp.fromDate(fechaConHora),
+    golesEquipoLocal,
+    golesEquipoVisitante
+  });
+  alert("Partido agregado correctamente");
 }
 //#endregion
 
 //#region Mostrar partidos
 
-async function mostrarPartidos(selectSorteos) {
-  selectSorteos.innerHTML = '<option value="">--Selecciona un partido--</option>';
+async function mostrarPartidos(selectPartidos) {
+  selectPartidos.innerHTML = '<option value="">--Selecciona un partido--</option>';
 
   try {
     const snapshot = await db.collection("resultados").get();
@@ -125,8 +131,20 @@ async function mostrarPartidos(selectSorteos) {
       const data = doc.data();
       const option = document.createElement("option");
       option.value = doc.id; // Guardamos el ID del documento
-      option.textContent = `${data.nombreEquipoLocal} vs ${data.nombreEquipoVisitante} (${new Date(data.hora.seconds*1000).toLocaleString()})`;
-      selectSorteos.appendChild(option);
+
+      // Convertir hora correctamente
+      let fechaPartido;
+      if (data.hora) {
+        fechaPartido = data.hora.toDate ? data.hora.toDate() : new Date(data.hora);
+      } else {
+        fechaPartido = new Date();
+      }
+
+      // Mostrar categoría junto con los equipos y la fecha
+      const categoria = data.categoria || "Sin categoría";
+      option.textContent = `${data.nombreEquipoLocal} vs ${data.nombreEquipoVisitante} [${categoria}] (${fechaPartido.toLocaleString()})`;
+
+      selectPartidos.appendChild(option);
     });
 
   } catch (error) {
@@ -141,13 +159,13 @@ async function mostrarPartidos(selectSorteos) {
 const btnModificarPartido = document.getElementById("btnModificarPartido");
 const golesEquipoLocalModificar = document.getElementById("golesEquipoLocalModificar");
 const golesEquipoVisitanteModificar = document.getElementById("golesEquipoVisitanteModificar");
-const selectSorteos = document.getElementById("selectSorteos"); // Select que contiene los partidos
+const selectPartidos = document.getElementById("selectPartidos"); // Select que contiene los partidos
 
 //Muestra los partidos
-mostrarPartidos(selectSorteos);
+mostrarPartidos(selectPartidos);
 
 btnModificarPartido.addEventListener("click", () => {
-  const idPartido = selectSorteos.value;
+  const idPartido = selectPartidos.value;
   const golesLocal = parseInt(golesEquipoLocalModificar.value.trim(), 10);
   const golesVisitante = parseInt(golesEquipoVisitanteModificar.value.trim(), 10);
 
@@ -381,7 +399,7 @@ const btnEliminarEquipo = document.getElementById("btnEliminarEquipo");
 mostrarEquipos(selectEquipos);
 
 btnEliminarEquipo.addEventListener("click", () => {
-  const nombreEquipo = selectEquipos.options[selectEquipos.selectedIndex].text;
+  const nombreEquipo = selectEquipos.selectedOptions[0]?.getAttribute("data-nombre");
 
   if(selectEquipos.value == ""){
     alert("Rellene todos los campos");
@@ -417,23 +435,18 @@ async function eliminarEquipo(nombreEquipo) {
 
 //#region Mostrar equipos
 
-async function mostrarEquipos(selectEquipos) {
-  selectEquipos.innerHTML = '<option value="">--Selecciona un equipo--</option>'; // Limpiar y poner opción por defecto
-    
-  try {
-    const snapshot = await db.collection("equipos").get();
-
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const option = document.createElement("option");
-      option.value = doc.id;      // Guardamos el ID del documento
-      option.textContent = data.nombreEquipo; // Mostramos el nombre de la categoría
-      selectEquipos.appendChild(option);
-    });
-
-  } catch (error) {
-    console.error("Error al cargar equipos:", error);
-  }
+async function mostrarEquipos(selectElement) {
+  const snapshot = await db.collection("equipos").get();
+  selectElement.innerHTML = '<option value="">--Seleccione un equipo--</option>';
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const option = document.createElement("option");
+    option.value = doc.id; // <-- poner el ID del documento
+    option.textContent = `${data.nombreEquipo} (${data.categoria})`; // mostrar categoría
+    option.setAttribute("data-nombre", data.nombreEquipo);//guarda el nombre
+    option.setAttribute("data-categoria", data.categoria); // guardar categoría
+    selectElement.appendChild(option);
+  });
 }
 
 //#endregion
@@ -447,9 +460,8 @@ const btnSumarPuntuacionEquipo = document.getElementById("btnSumarPuntuacionEqui
 mostrarEquipos(selectEquiposSumarPuntos);
 
 btnSumarPuntuacionEquipo.addEventListener("click", () => {
-  const puntuacionSumarEquipo = puntuacionSumarEquipoInput.value.trim();
+  const puntuacionSumarEquipo = puntuacionSumarEquipoInput.value;
   const idEquipoSumarPuntos = selectEquiposSumarPuntos.value;
-
   if(selectEquiposSumarPuntos.value == "" || !idEquipoSumarPuntos){
     alert ("Rellene todos los campos");
     return;
@@ -638,6 +650,44 @@ async function mostrarSorteos(selectSorteos) {
         alert("Error al actualizar numero ganador:", err);
     }
   }
+
+//#endregion
+
+//#region Eliminar sorteo
+
+const selectSorteoEliminar = document.getElementById("selectSorteoEliminar");
+const btnEliminarSorteo = document.getElementById("btnEliminarSorteo");
+
+//Muestra los sorteos
+mostrarSorteos(selectSorteoEliminar);
+
+btnEliminarSorteo.addEventListener("click", () => {
+  const idSorteoEliminar = selectSorteoEliminar.value;
+
+  if(selectSorteoEliminar.value == ""){
+    alert("Rellene todos los campos ");
+    return;
+  }
+  eliminarSorteo(idSorteoEliminar);
+
+  //Limpiar los input
+  selectSorteoEliminar.innerHTML = '<option value="">--Selecciona un sorteo--</option>';
+});
+
+ /**
+ * Agrega un sorteo a Firestore
+ * @param {string} idSorteoEliminar 
+ */
+  async function eliminarSorteo(idSorteoEliminar) {
+    try {
+    await db.collection("sorteos").doc(idSorteoEliminar).delete();
+    alert("Sorteo eliminado correctamente");
+    location.reload();
+  } catch (error) {
+    console.error("Error al eliminar sorteo:", error);
+  }
+  }
+
 
 //#endregion
 

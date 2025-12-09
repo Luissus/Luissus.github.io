@@ -31,58 +31,62 @@ setInterval(() => {
 
 //#region Mostrar partidos
 
-  // Función para mostrar resultados
   async function mostrarPartidos() {
-    const tablaBody = document.getElementById("tablaBody");
-    tablaBody.innerHTML = ""; // Limpiar tabla
+  const tablaBody = document.getElementById("tablaBody");
+  tablaBody.innerHTML = "";
 
-    try {
-      const snapshot = await db.collection("resultados")
-      .orderBy("hora", "desc") //ordena directamente en firebase los resultados poniendo el ultimo primero
+  try {
+    const snapshot = await db.collection("resultados")
+      .orderBy("hora", "desc")
       .get();
 
-      if (snapshot.empty) {
-        tablaBody.innerHTML = "<tr><td colspan='4'>No hay resultados</td></tr>";
-        return;
-      }
-
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const row = document.createElement("tr");
-
-        // Cada campo en su celda
-        const nombreEquipoLocal = document.createElement("td");
-        nombreEquipoLocal.textContent = data.nombreEquipoLocal || "";
-
-        const nombreEquipoVisitante = document.createElement("td");
-        nombreEquipoVisitante.textContent = data.nombreEquipoVisitante || "";
-
-        const diaPartido = document.createElement("td");
-        diaPartido.textContent = data.hora ? data.hora.toDate().toLocaleDateString("es-ES") : "";
-
-        const hora = document.createElement("td");
-        hora.textContent = data.hora ? data.hora.toDate().toLocaleTimeString() : "";
-
-        const golesEquipoLocal = document.createElement("td");
-        golesEquipoLocal.textContent = data.golesEquipoLocal || "";
-
-        const golesEquipoVisitante = document.createElement("td");
-        golesEquipoVisitante.textContent = data.golesEquipoVisitante || "";
-
-        row.appendChild(nombreEquipoLocal);
-        row.appendChild(nombreEquipoVisitante);
-        row.appendChild(diaPartido);
-        row.appendChild(hora);
-        row.appendChild(golesEquipoLocal);
-        row.appendChild(golesEquipoVisitante);
-
-        tablaBody.appendChild(row);
-      });
-
-    } catch (error) {
-      alert("Error al cargar resultados: " + error.message);
+    if (snapshot.empty) {
+      tablaBody.innerHTML = "<tr><td colspan='7'>No hay resultados</td></tr>";
+      return;
     }
+
+    for (const doc of snapshot.docs) {
+      const data = doc.data();
+
+      const row = document.createElement("tr");
+
+      const nombreEquipoLocal = document.createElement("td");
+      nombreEquipoLocal.textContent = data.nombreEquipoLocal || "";
+
+      const nombreEquipoVisitante = document.createElement("td");
+      nombreEquipoVisitante.textContent = data.nombreEquipoVisitante || "";
+
+      // ⚡ Categoria tomada directamente de resultados
+      const categoriaTd = document.createElement("td");
+      categoriaTd.textContent = data.categoria || "Sin categoría";
+
+      const diaPartido = document.createElement("td");
+      diaPartido.textContent = data.hora ? data.hora.toDate().toLocaleDateString("es-ES") : "";
+
+      const hora = document.createElement("td");
+      hora.textContent = data.hora ? data.hora.toDate().toLocaleTimeString() : "";
+
+      const golesEquipoLocal = document.createElement("td");
+      golesEquipoLocal.textContent = data.golesEquipoLocal || "";
+
+      const golesEquipoVisitante = document.createElement("td");
+      golesEquipoVisitante.textContent = data.golesEquipoVisitante || "";
+
+      row.appendChild(nombreEquipoLocal);
+      row.appendChild(nombreEquipoVisitante);
+      row.appendChild(categoriaTd);
+      row.appendChild(diaPartido);
+      row.appendChild(hora);
+      row.appendChild(golesEquipoLocal);
+      row.appendChild(golesEquipoVisitante);
+
+      tablaBody.appendChild(row);
+    }
+
+  } catch (error) {
+    alert("Error al cargar resultados: " + error.message);
   }
+}
 
 //#endregion
 
