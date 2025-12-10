@@ -9,6 +9,7 @@
   padding: 15px 40px;
   box-sizing: border-box;
   background: linear-gradient(90deg, #1f6a29, #2e7d32);
+  border-radius: 20px; /* redondea todas las esquinas */
 }
 
 /* Logos redondos */
