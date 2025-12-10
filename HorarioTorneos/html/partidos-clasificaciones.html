@@ -7,11 +7,15 @@
   <link rel="icon" href="../imagenes/logo.jpg" type="image/jpeg">
 </head>
 <body>
-  <header class="header">
-<img src="../imagenes/logo.jpg" alt="Imagen izquierda" class="side-img" />
-<h1>Torneo Noja</h1>
-<img src="../imagenes/logo.jpg" alt="Imagen derecha" class="side-img" />
-</header>
+
+  <div id="header"></div>
+  <script>
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("header").innerHTML = data;
+      });
+  </script>
 
   <main class="layout">
   <section class="left-box">

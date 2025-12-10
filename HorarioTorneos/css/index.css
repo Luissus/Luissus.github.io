@@ -22,11 +22,34 @@ header img {
   height: 60px;
 }
 
-header h1 {
-  flex-grow: 1;
+/* Título centrado con iconos debajo */
+.title-section {
   text-align: center;
+  flex-grow: 1;
+}
+
+header h1 {
   margin: 0;
   font-size: 2rem;
+}
+
+/* Iconos centrados */
+.social-icons {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-icons img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
 }
 
 /* Contenedor principal de botones centrados */
