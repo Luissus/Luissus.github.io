@@ -691,6 +691,12 @@ btnEliminarSorteo.addEventListener("click", () => {
 
 //#endregion
 
+//#region Modificar Sorteo
+
+  
+
+//#endregion 
+
 //#endregion
 
 //#region Menu desplegable para opciones
