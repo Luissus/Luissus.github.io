@@ -1,82 +1,85 @@
-header {
+/* ---------------------------------------------------------
+   HEADER - Encapsulado en #header-wrapper
+--------------------------------------------------------- */
+#header-wrapper header {
   width: 100%;
-  background: linear-gradient(90deg, #1f6a29, #2e7d32);
-  color: white;
   display: flex;
-  justify-content: space-between; /* Logos a los extremos */
+  justify-content: space-between; /* Logos a los lados */
   align-items: center;
   padding: 15px 40px;
   box-sizing: border-box;
+  background: linear-gradient(90deg, #1f6a29, #2e7d32);
 }
 
-/* Logos */
-header img.logo {
+/* Logos redondos */
+#header-wrapper header img.logo {
   height: 80px;
   width: 80px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  flex-shrink: 0; /* evita que se encojan */
+  flex-shrink: 0; /* Evita que se reduzcan al hacer la ventana más pequeña */
 }
 
-/* Contenedor del título + redes */
-.title-section {
+/* Contenedor del título + redes sociales */
+#header-wrapper .title-section {
+  flex-grow: 1;
   text-align: center;
-  flex: 1; /* ocupa todo el espacio entre los logos */
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 0; /* permite que el texto se reduzca sin romper layout */
 }
 
-/* Título */
-header h1 {
+/* Título principal */
+#header-wrapper header h1 {
   margin: 0;
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: 1px;
-  text-shadow: 3px 3px 6px rgba(0,0,0,0.35);
   font-family: "Poppins", sans-serif;
-  word-wrap: break-word;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.35);
 }
 
-/* Redes sociales */
-.social-icons {
+/* Iconos de redes sociales */
+#header-wrapper .social-icons {
   margin-top: 10px;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
 }
 
-.social-icons img {
+#header-wrapper .social-icons img {
   width: 60px;
   height: 32px;
   transition: transform 0.2s ease, opacity 0.2s ease;
   opacity: 0.9;
 }
 
-.social-icons img:hover {
+#header-wrapper .social-icons img:hover {
   transform: scale(1.15);
   opacity: 1;
 }
 
-/* RESPONSIVE */
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
 @media (max-width: 768px) {
-  header {
+  #header-wrapper header {
+    flex-direction: row; /* Mantener logos a los lados */
     padding: 10px 20px;
   }
 
-  header img.logo {
-    height: 60px;
-    width: 60px;
-  }
-
-  header h1 {
+  #header-wrapper .title-section h1 {
     font-size: 2rem;
   }
 
-  .social-icons img {
+  #header-wrapper .social-icons img {
     width: 50px;
     height: 28px;
+  }
+
+  #header-wrapper header img.logo {
+    height: 60px;
+    width: 60px;
   }
 }
