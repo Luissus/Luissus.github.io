@@ -97,6 +97,7 @@ header h1 {
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.3s;
+  z-index: 9999;
 }
 
 #btnLoginAdmin:hover {
