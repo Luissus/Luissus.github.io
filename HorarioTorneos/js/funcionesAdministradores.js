@@ -335,8 +335,6 @@ mostrarCategorias(selectCategoriasEliminar);
 
 //#endregion
 
-
-
 //#region Equipos 
 
 

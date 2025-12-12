@@ -1,0 +1,187 @@
+/* ---------------------------------------------------------
+   RESET GENERAL
+--------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #d9fdd3;
+}
+
+
+/* ---------------------------------------------------------
+   LAYOUT GENERAL
+--------------------------------------------------------- */
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  padding: 35px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+/* ---------------------------------------------------------
+   MENÚS EXPANDIBLES
+--------------------------------------------------------- */
+
+/* Estado cerrado */
+.menu-options {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-top: 10px;
+    margin-left: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+
+    /* IMPORTANTE: padding 0 cuando está cerrado para que no "desaparezca" */
+    padding: 0;
+}
+
+/* Estado abierto (tu JS le agrega esta clase) */
+.menu-options.open {
+    padding: 15px;
+    max-height: 600px; /* Suficiente para inputs y botón */
+}
+
+/* Inputs */
+.menu-options input,
+.menu-options textarea,
+.menu-options select,
+.menu-options button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Botón interno */
+.menu-options button {
+    background: #28a745;
+    color: white;
+    border: none;
+}
+
+.menu-options button:hover {
+    background: #1e7e34;
+}
+
+/* ---------------------------------------------------------
+   BOTONES PRINCIPALES
+--------------------------------------------------------- */
+.menu-btn, .option-btn, .btn-login {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.menu-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.menu-btn:hover { background-color: #0056b3; }
+
+.option-btn {
+    background-color: #17a2b8;
+    color: white;
+    margin-left: 10px;
+}
+
+.option-btn:hover { background-color: #117a8b; }
+
+
+/* ---------------------------------------------------------
+   CAJAS
+--------------------------------------------------------- */
+.left-box,
+.right-box {
+  background: white;
+  padding: 25px 25px 40px; /* más padding abajo */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  overflow: visible;      /* ← evita cortes completamente */
+  margin-bottom: 30px;
+}
+
+h2 {
+  text-align: center;
+  color: #1c7c1c;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+
+/* ---------------------------------------------------------
+   TABLAS
+--------------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #2e9e2e;
+  background: white;
+}
+
+th {
+  background: #2e9e2e;
+  color: white;
+  padding: 10px;
+  border: 1px solid #1c7c1c;
+  text-align: center;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #2e9e2e;
+  text-align: center;
+}
+
+table th, table td {
+  white-space: normal;
+  word-break: break-word;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .header {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .side-img {
+    width: 80px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  .layout {
+    padding: 20px;
+  }
+}

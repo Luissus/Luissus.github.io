@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Comentarios</title>
+  <link rel="stylesheet" href="../css/comentarios.css" />
+  <link rel="icon" href="../imagenes/logo.jpg" type="image/jpeg">
+</head>
+<body>
+  <div id="header-wrapper" style="width:100%; height:150px; overflow:hidden;">
+    <iframe src="header.html" 
+            style="width:100%; height:100%; border:none;" 
+            scrolling="no">
+    </iframe>
+  </div>
+
+  <iframe src="anuncios.html?div=anuncio2" 
+        width="320" 
+        height="150" 
+        style="border:none; overflow:hidden; position:fixed; bottom:0; left:50%; transform:translateX(-50%); z-index:9999;">
+  </iframe>
+
+<main class="layout">
+  <section class="left-box">
+    <button class="menu-btn">Agregar comentario</button>
+    <div class="menu-options">
+      <input type="text" id="nombreApellidosComentario" placeholder="Nombre y apellidos">
+      <input type="email" id="emailComentario" placeholder="Correo electronico">
+      <textarea  id="textoComentario" placeholder="Comentario"></textarea>
+      <button id="btnAgregarComentario">Agregar</button>
+    </div>
+
+  </section>
+
+  <section class="right-box">
+  <h2>Comentarios</h2>
+  <div id="contenedorClasificaciones">
+
+  </div>
+</section>
+</main>
+
+  <!-- Firebase clásico compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/comentarios.js"></script>
+</body>
+</html>
