@@ -1,31 +1,51 @@
 .anuncio {
-  display: none;
   position: fixed;
-  bottom: -140px; /* empieza fuera de la pantalla */
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 250px;       /* más pequeño */
-  max-width: 90%;
+  width: calc(100% - 20px);   /* 🔥 deja 10px de margen a los lados */
+  max-width: 350px;
   background-color: #fff8e1;
   border: 2px solid #ff9800;
   border-radius: 15px;
-  padding: 15px 10px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-  text-align: center;   /* centra horizontalmente */
+  padding: 12px 10px;
+  box-shadow: none;
+  text-align: center;
   z-index: 9999;
-  display: flex;
-  flex-direction: column; /* todo se apila verticalmente */
-  align-items: center;    /* centra todo horizontalmente */
-  gap: 10px;
 
-  /* Animación */
-  transition: bottom 0.5s ease, opacity 0.5s ease;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
   opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: translateX(-50%) translateY(20px);
+
+  pointer-events: none;
+}
+
+/* cuando aparece */
+.anuncio.mostrar {
+  display: flex;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.cerrar {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
 }
 
 .img-container {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -38,28 +58,33 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  display: block;
 }
 
 .anuncio p {
   margin: 0;
   font-weight: bold;
-  text-align: center;  /* centra el texto */
-  font-size: 14px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.2;
+  padding: 0 5px;
+  word-wrap: break-word;
 }
 
-.cerrar {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  color: #333;
-}
-
-.anuncio.mostrar {
-  bottom: 20px;
-  opacity: 1;
+/* Móviles */
+@media (max-width: 450px) {
+  .anuncio {
+    padding: 10px 8px;
+    width: calc(100% - 20px); /* 🔥 margen mantenido */
+  }
+  .anuncio p {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+  .img-container {
+    width: 50px;
+    height: 50px;
+  }
+  .cerrar {
+    font-size: 16px;
+  }
 }

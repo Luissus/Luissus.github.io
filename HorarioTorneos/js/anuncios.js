@@ -1,9 +1,18 @@
 // Función para cerrar el anuncio
 function cerrar(elemento) {
   const anuncio = elemento.parentElement;
-  anuncio.classList.remove('mostrar'); // anima hacia abajo
+
+  anuncio.classList.remove('mostrar');
+
   setTimeout(() => {
-    anuncio.style.display = 'none'; // lo oculta después de la animación
+    anuncio.remove();
+
+    // 🔥 eliminar el iframe desde dentro
+    if (window.parent) {
+      const iframe = window.parent.document.getElementById("ifAnuncio");
+      if (iframe) iframe.remove();
+    }
+
   }, 500);
 }
 

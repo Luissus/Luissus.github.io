@@ -25,6 +25,10 @@ firebase.auth().signInWithEmailAndPassword("comentarios@gmail.com", "comentarios
     console.error("Error al iniciar sesión:", error);
   });
 
+//#region Comentarios
+
+//#region Enviar comentario
+
 // Referencias a inputs y botón
 const nombreApellidosComentarioInput = document.getElementById("nombreApellidosComentario");
 const emailComentarioInput = document.getElementById("emailComentario");
@@ -39,6 +43,11 @@ btnAgregarComentario.addEventListener("click", () => {
 
   if (!nombreApellidosComentario || !emailComentario || !textoComentario) {
     alert("Rellene todos los campos");
+    return;
+  }
+    const filtro = filtroVocabulario(textoComentario);
+  if(filtro != false){
+    alert("Esta proibido el uso de lenguaje malsonante:" +  ' "' + filtro + '"');
     return;
   }
 
@@ -60,6 +69,121 @@ async function enviarComentario(nombreApellidosComentario, emailComentario, text
     alert("Error al enviar comentario");
   }
 }
+
+//#endregion
+
+//#region Filtro vocabulario
+
+const malasPalabras = [
+  "mierda",
+  "joder",
+  "puta",
+  "gilipollas",
+  "coño",
+  "cabron",
+  "idiota",
+  "imbecil",
+  "tonto",
+  "estupido",
+  "pendejo",
+  "maldito",
+  "chinga",
+  "chingado",
+  "hijo de puta",
+  "bastardo",
+  "zorra",
+  "cerdo",
+  "tarado",
+  "gilipollas",
+  "puto",
+  "cojones",
+  "maricon",
+  "culero",
+  "cabrón"
+];
+
+function filtroVocabulario(texto) {
+  const textoMinusculas = texto.toLowerCase();
+  for (const palabra of malasPalabras) {
+    if (textoMinusculas.includes(palabra)) {
+      return palabra; // devuelve la palabra encontrada
+    }
+  }
+  return false; 
+}
+//#endregion
+
+//#region Mostrar Comentarios
+
+async function mostrarComentarios() {
+  const contenedor = document.getElementById("contenedorComentarios");
+  contenedor.innerHTML = ""; // Limpiar
+
+  try {
+    const snapshot = await db.collection("comentarios")
+      .orderBy("fecha", "desc")
+      .get();
+
+    if (snapshot.empty) {
+      contenedor.innerHTML = "<p>No hay comentarios todavía.</p>";
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+
+      const fecha = data.fecha ? data.fecha.toDate() : null;
+      const fechaFormateada = fecha
+        ? fecha.toLocaleString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          })
+        : "Sin fecha";
+
+      // Crear la tarjeta
+      const tarjeta = document.createElement("div");
+      tarjeta.classList.add("comentario-card");
+
+      tarjeta.innerHTML = `
+        <div class="comentario-header">
+          <span class="comentario-nombre">${data.nombreApellidosComentario}</span>
+          <span class="comentario-fecha">${fechaFormateada}</span>
+        </div>
+
+        <div class="comentario-texto">
+          ${data.textoComentario}
+        </div>
+      `;
+
+      contenedor.appendChild(tarjeta);
+    });
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al cargar comentarios.");
+  }
+}
+
+//#endregion
+
+//#region Mostrar Comentarios solo si se ve desde administrador
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("ver") === "1") {
+      mostrarComentarios();  
+      document.querySelector(".right-box").style.display = "block";
+    }
+
+  });
+//#endregion
+
+//#endregion
+
 
 //#region Menu desplegable
 /*

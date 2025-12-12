@@ -14,11 +14,6 @@
     </iframe>
   </div>
 
-  <iframe src="anuncios.html?div=anuncio2" 
-        width="320" 
-        height="150" 
-        style="border:none; overflow:hidden; position:fixed; bottom:0; left:50%; transform:translateX(-50%); z-index:9999;">
-  </iframe>
 
 <main class="layout">
   <section class="left-box">
@@ -32,13 +27,20 @@
 
   </section>
 
-  <section class="right-box">
+  <section class="right-box" >
   <h2>Comentarios</h2>
-  <div id="contenedorClasificaciones">
+  <div id="contenedorComentarios">
 
   </div>
 </section>
 </main>
+
+<iframe id="ifAnuncio"
+        src="anuncios.html?div=anuncio2" 
+        width="320" 
+        height="150" 
+        style="border:none; overflow:hidden; position:fixed; bottom:0; left:50%; transform:translateX(-50%); z-index:9999;">
+</iframe>
 
   <!-- Firebase clásico compat -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>

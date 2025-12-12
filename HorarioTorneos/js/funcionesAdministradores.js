@@ -697,6 +697,14 @@ btnEliminarSorteo.addEventListener("click", () => {
 
 //#endregion
 
+//#region Comentarios
+
+  function abrirComentarios() {
+    window.location.href = "../html/comentarios.html?ver=1";
+  }
+
+//#endregion
+
 //#region Menu desplegable para opciones
 
 // Primer nivel: abrir sección principal
